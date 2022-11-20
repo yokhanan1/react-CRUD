@@ -1,5 +1,5 @@
-import { Button, Checkbox, Form } from 'semantic-ui-react'
-import React, { useState } from 'react'
+import { Button, Checkbox, Form } from 'semantic-ui-react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const FormExampleForm = () => {

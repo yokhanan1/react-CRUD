@@ -1,12 +1,20 @@
 import React from 'react';
-import { Table } from 'semantic-ui-react';
+import { Table, Button } from 'semantic-ui-react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 function Read() {
     
     const [APIData, setAPIData] = useState([]);
+    const setData = (data) => {
+        let { id, firstName, lastName, checkbox } = data;
+        localStorage.setItem('ID', id);
+        localStorage.setItem('First Name', firstName);
+        localStorage.setItem('Last Name', lastName);
+        localStorage.setItem('Checkbox Value', checkbox);
+    }
     
     useEffect(() => {
         axios.get(`https://6373df540bb6b698b6178f9c.mockapi.io/testData`).then((response) => {setAPIData(response.data)})
@@ -21,6 +29,7 @@ function Read() {
                         <Table.HeaderCell>First Name</Table.HeaderCell>
                         <Table.HeaderCell>Last Name</Table.HeaderCell>
                         <Table.HeaderCell>Checked</Table.HeaderCell>
+                        <Table.HeaderCell>Update</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
@@ -31,6 +40,11 @@ function Read() {
                                 <Table.Cell>{ data.firstName }</Table.Cell>
                                 <Table.Cell>{ data.lastName }</Table.Cell>
                                 <Table.Cell>{ data.checkbox ? 'Checked' : 'Unchecked' }</Table.Cell>
+                                <Link to='/Update'>
+                                    <Table.Cell>
+                                        <Button primary onClick={() => setData(data)}>Update</Button>
+                                    </Table.Cell>
+                                </Link>
                             </Table.Row>
                         )
                     })}
