@@ -1,11 +1,16 @@
 import { Button, Checkbox, Form } from 'semantic-ui-react';
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const FormExampleForm = () => {
+
+function Create() {
+    
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [checkbox, setCheckbox] = useState(false);
+    
+    let navigate = useNavigate();
 
     // const postData = () => {
     //     console.log(firstName);
@@ -19,6 +24,9 @@ const FormExampleForm = () => {
             firstName,
             lastName,
             checkbox
+        })
+        .then(() => {
+            navigate('/read');
         })
     }
     
@@ -46,4 +54,4 @@ const FormExampleForm = () => {
     )
 } 
 
-export default FormExampleForm
+export default Create;

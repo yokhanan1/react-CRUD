@@ -8,6 +8,19 @@ import { Link } from 'react-router-dom';
 function Read() {
     
     const [APIData, setAPIData] = useState([]);
+
+    const getData = () => {
+        axios.get(`https://6373df540bb6b698b6178f9c.mockapi.io/testData`).then((getData) => {
+            setAPIData(getData.data);
+        })
+    }
+
+    const onDelete = (id) => {
+        axios.delete(`https://6373df540bb6b698b6178f9c.mockapi.io/testData/${id}`).then(() => {
+            getData();
+        })
+    }
+
     const setData = (data) => {
         let { id, firstName, lastName, checkbox } = data;
         localStorage.setItem('ID', id);
@@ -30,6 +43,7 @@ function Read() {
                         <Table.HeaderCell>Last Name</Table.HeaderCell>
                         <Table.HeaderCell>Checked</Table.HeaderCell>
                         <Table.HeaderCell>Update</Table.HeaderCell>
+                        <Table.HeaderCell>Delete</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
@@ -45,6 +59,9 @@ function Read() {
                                         <Button primary onClick={() => setData(data)}>Update</Button>
                                     </Table.Cell>
                                 </Link>
+                                <Table.Cell>
+                                    <Button color='red' onClick={() => onDelete(data.id)}>Delete</Button>
+                                </Table.Cell>
                             </Table.Row>
                         )
                     })}
